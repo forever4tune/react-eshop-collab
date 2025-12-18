@@ -1,0 +1,194 @@
+[
+  {
+    "id": 1,
+    "name": "cap1",
+    "price": 12.3,
+    "image": "/public/caps/caps (1).jfif"
+  },
+  {
+    "id": 2,
+    "name": "cap2",
+    "price": 12.3,
+    "image": "/public/caps/caps (2).jfif"
+  },
+  {
+    "id": 3,
+    "name": "cap3",
+    "price": 12.3,
+    "image": "/public/caps/caps (3).jfif"
+  },
+  {
+    "id": 4,
+    "name": "cap4",
+    "price": 12.3,
+    "image": "/public/caps/caps (4).jfif"
+  },
+  {
+    "id": 5,
+    "name": "cap5",
+    "price": 12.3,
+    "image": "/public/caps/caps (5).jfif"
+  },
+  {
+    "id": 6,
+    "name": "cap6",
+    "price": 12.3,
+    "image": "/public/caps/caps (6).jfif"
+  },
+  {
+    "id": 7,
+    "name": "cap7",
+    "price": 12.3,
+    "image": "/public/caps/caps (7).jfif"
+  },
+  {
+    "id": 8,
+    "name": "cap8",
+    "price": 12.3,
+    "image": "/public/caps/caps (8).jfif"
+  },
+  {
+    "id": 9,
+    "name": "cap9",
+    "price": 12.3,
+    "image": "/public/caps/caps (9).jfif"
+  },
+  {
+    "id": 10,
+    "name": "cap10",
+    "price": 12.3,
+    "image": "/public/caps/caps (10).jfif"
+  },
+  {
+    "id": 11,
+    "name": "cap11",
+    "price": 12.3,
+    "image": "/public/caps/caps (11).jfif"
+  },
+  {
+    "id": 12,
+    "name": "cap12",
+    "price": 12.3,
+    "image": "/public/caps/caps (12).jfif"
+  },
+  {
+    "id": 13,
+    "name": "car1",
+    "price": 12.3,
+    "image": "/public/car/car (1).jfif"
+  },
+  {
+    "id": 14,
+    "name": "car2",
+    "price": 12.3,
+    "image": "/public/car/car (2).jfif"
+  },
+  {
+    "id": 15,
+    "name": "car3",
+    "price": 12.3,
+    "image": "/public/car/car (3).jfif"
+  },
+  {
+    "id": 16,
+    "name": "car4",
+    "price": 12.3,
+    "image": "/public/car/car (4).jfif"
+  },
+  {
+    "id": 17,
+    "name": "car5",
+    "price": 12.3,
+    "image": "/public/car/car (5).jfif"
+  },
+  {
+    "id": 18,
+    "name": "car6",
+    "price": 12.3,
+    "image": "/public/car/car (6).jfif"
+  },
+  {
+    "id": 19,
+    "name": "car7",
+    "price": 12.3,
+    "image": "/public/car/car (7).jfif"
+  },
+  {
+    "id": 20,
+    "name": "car8",
+    "price": 12.3,
+    "image": "/public/car/car (8).jfif"
+  },
+  {
+    "id": 21,
+    "name": "car9",
+    "price": 12.3,
+    "image": "/public/car/car (9).jfif"
+  },
+  {
+    "id": 22,
+    "name": "car10",
+    "price": 12.3,
+    "image": "/public/car/car (10).jfif"
+  },
+  {
+    "id": 23,
+    "name": "computer1",
+    "price": 12.3,
+    "image": "/public/computers/computer (1).jfif"
+  },
+  {
+    "id": 24,
+    "name": "computer2",
+    "price": 12.3,
+    "image": "/public/computers/computer (2).jfif"
+  },
+  {
+    "id": 25,
+    "name": "computer3",
+    "price": 12.3,
+    "image": "/public/computers/computer (3).jfif"
+  },
+  {
+    "id": 26,
+    "name": "computer4",
+    "price": 12.3,
+    "image": "/public/computers/computer (4).jfif"
+  },
+  {
+    "id": 27,
+    "name": "computer5",
+    "price": 12.3,
+    "image": "/public/computers/computer (5).jfif"
+  },
+  {
+    "id": 28,
+    "name": "computer6",
+    "price": 12.3,
+    "image": "/public/computers/computer (6).jfif"
+  },
+  {
+    "id": 29,
+    "name": "computer7",
+    "price": 12.3,
+    "image": "/public/computers/computer (7).jfif"
+  },
+  {
+    "id": 30,
+    "name": "computer8",
+    "price": 12.3,
+    "image": "/public/computers/computer (8).jfif"
+  },
+  {
+    "id": 31,
+    "name": "computer9",
+    "price": 12.3,
+    "image": "/public/computers/computer (9).jfif"
+  },
+  {
+    "id": 32,
+    "name": "computer10",
+    "price": 12.3,
+    "image": "/public/computers/computer (10).jfif"
+  }
+]

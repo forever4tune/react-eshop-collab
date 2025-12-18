@@ -1,0 +1,36 @@
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  font-style: italic;
+}
+.search-input {
+  border-radius: 15px;
+  border-color: dodgerblue;
+}
+.number {
+  position: absolute;
+  top: 18px;
+  background: red;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  display: inline-flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+.products {
+  margin-right: 20px;
+  color: black;
+  background: white;
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 20px;
+}
+.categories {
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 8px;
+  border-radius: 20px;
+}
