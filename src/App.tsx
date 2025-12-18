@@ -1,6 +1,6 @@
-// import { useState } from 'react'
+// import {useState } from 'react'
 // import { Provider } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import MoveToTop from "./components/MoveToTop";
 import Cart from "./components/Cart";
 import Header from "./components/Header";
@@ -19,18 +19,20 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/move-to-button" element={<MoveToTop />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/products" element={<AllProducts />} />
-        <Route path="/categories" element={<AllCategories />} />
-        <Route path="/product/:productID" element={<SingleProduct />} />
-        <Route path="/category/:slug" element={<SingleCategory />} />
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/move-to-button" element={<MoveToTop />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/products" element={<AllProducts />} />
+          <Route path="/categories" element={<AllCategories />} />
+          <Route path="/product/:productID" element={<SingleProduct />} />
+          <Route path="/category/:slug" element={<SingleCategory />} />
+        </Routes>
+      </BrowserRouter>
       <Footer />
     </>
   );

@@ -1,7 +1,7 @@
 
 const AllCategories = () => {
     return (
-        <div>
+        <div className="main">
             <div>AllCategories Page</div>
         </div>
     )

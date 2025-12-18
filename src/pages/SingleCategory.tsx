@@ -1,7 +1,7 @@
 
 const SingleCategory = () => {
     return (
-        <div>
+        <div className="main">
             <div>SingleCategory Page</div>
         </div>
     )
