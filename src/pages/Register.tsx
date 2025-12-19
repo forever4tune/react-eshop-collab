@@ -11,7 +11,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
-import styles from "./auth.module.css";
+import styles from "../styles/auth.module.css";
 
 const Register = () => {
   const navigate = useNavigate();
