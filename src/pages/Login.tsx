@@ -12,6 +12,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 
@@ -21,12 +23,26 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    const newErrors: { email?: string; password?: string } = {};
+    const emailRe = /^\S+@\S+\.\S+$/;
+    if (!email) newErrors.email = "Email is required";
+    else if (!emailRe.test(email)) newErrors.email = "Enter a valid email";
+    if (!password) newErrors.password = "Password is required";
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     const token = btoa(`${email}:${Date.now()}`);
     dispatch(loginUser({ user: { id: Date.now(), email }, token }));
-    navigate("/");
+    setOpenSuccess(true);
+    setTimeout(() => navigate("/"), 900);
   };
 
   return (
@@ -43,6 +59,19 @@ const Login = () => {
                   fullWidth
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => {
+                    const emailRe = /^\S+@\S+\.\S+$/;
+                    setErrors((prev) => ({
+                      ...prev,
+                      email: !email
+                        ? "Email is required"
+                        : !emailRe.test(email)
+                        ? "Enter a valid email"
+                        : undefined,
+                    }));
+                  }}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -60,6 +89,14 @@ const Login = () => {
                   fullWidth
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => {
+                    setErrors((prev) => ({
+                      ...prev,
+                      password: !password ? "Password is required" : undefined,
+                    }));
+                  }}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -117,6 +154,20 @@ const Login = () => {
                   Apple
                 </button>
               </div>
+              <Snackbar
+                open={openSuccess}
+                autoHideDuration={3000}
+                onClose={() => setOpenSuccess(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert
+                  onClose={() => setOpenSuccess(false)}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
+                  Signed in successfully
+                </Alert>
+              </Snackbar>
               <div className="mt-3 text-center">
                 <hr className={styles["login-hr"]} />
                 <small>

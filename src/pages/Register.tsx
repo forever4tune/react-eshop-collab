@@ -7,6 +7,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import styles from "./auth.module.css";
@@ -18,10 +20,40 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    agreeTerms?: string;
+  }>({});
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/login");
+    const newErrors: {
+      name?: string;
+      email?: string;
+      password?: string;
+      confirmPassword?: string;
+      agreeTerms?: string;
+    } = {};
+    const emailRe = /^\S+@\S+\.\S+$/;
+    if (!name) newErrors.name = "Name is required";
+    if (!email) newErrors.email = "Email is required";
+    else if (!emailRe.test(email)) newErrors.email = "Enter a valid email";
+    if (!password) newErrors.password = "Password is required";
+    else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+    if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password";
+    else if (confirmPassword !== password) newErrors.confirmPassword = "Passwords do not match";
+    if (!agreeTerms) newErrors.agreeTerms = "You must agree to continue";
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
+    // on successful validation show toast then navigate
+    setOpenSuccess(true);
+    setTimeout(() => navigate("/login"), 1200);
   };
 
   return (
@@ -38,6 +70,9 @@ const Register = () => {
                   fullWidth
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={() => setErrors((p) => ({ ...p, name: !name ? "Name is required" : undefined }))}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -54,6 +89,12 @@ const Register = () => {
                   fullWidth
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => {
+                    const emailRe = /^\S+@\S+\.\S+$/;
+                    setErrors((p) => ({ ...p, email: !email ? "Email is required" : !emailRe.test(email) ? "Enter a valid email" : undefined }));
+                  }}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -71,6 +112,9 @@ const Register = () => {
                   fullWidth
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => setErrors((p) => ({ ...p, password: !password ? "Password is required" : password.length < 6 ? "Password must be at least 6 characters" : undefined }))}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -88,6 +132,9 @@ const Register = () => {
                   fullWidth
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  onBlur={() => setErrors((p) => ({ ...p, confirmPassword: !confirmPassword ? "Please confirm your password" : confirmPassword !== password ? "Passwords do not match" : undefined }))}
+                  error={Boolean(errors.confirmPassword)}
+                  helperText={errors.confirmPassword}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -108,6 +155,7 @@ const Register = () => {
                   }
                   label="I agree to the Terms of Service and Privacy Policy"
                 />
+                {errors.agreeTerms && <div className={styles.errorText}>{errors.agreeTerms}</div>}
               </div>
               <button
                 className={styles.gradientButton}
@@ -130,6 +178,16 @@ const Register = () => {
                   Apple
                 </button>
               </div>
+              <Snackbar
+                open={openSuccess}
+                autoHideDuration={3000}
+                onClose={() => setOpenSuccess(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert onClose={() => setOpenSuccess(false)} severity="success" sx={{ width: "100%" }}>
+                  Registration successful
+                </Alert>
+              </Snackbar>
               <div className="mt-3 text-center">
                 <hr />
                 <small>
