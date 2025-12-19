@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { productsData } from "../data/products";
 import ProductCard from "../components/ProductCard";
-import styles from "./product.module.css";
+import styles from "../styles/product.module.css";
 
 const AllProducts: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");

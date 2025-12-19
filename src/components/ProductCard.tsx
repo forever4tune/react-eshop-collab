@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Product } from "../data/products";
-import styles from "../pages/product.module.css";
+import styles from "../styles/product.module.css";
 import Rating from "@mui/material/Rating";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 

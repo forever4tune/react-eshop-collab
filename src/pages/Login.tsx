@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../redux/features/authSlice";
 import type { AppDispatch } from "../redux/store.ts";
-import styles from "./auth.module.css";
+import styles from "../styles/auth.module.css";
 
 //import material UI
 import TextField from "@mui/material/TextField";
