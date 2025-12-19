@@ -1,0 +1,77 @@
+.imageContainer {
+  background: transparent;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.auth-wrapper-height {
+  height: 76.8vh;
+}
+
+.imageContainer .MuiFormControl-root {
+  background: rgba(255,255,255,0.9);
+}
+
+.gradientButton {
+  background: linear-gradient(135deg, #0066ff 0%, #004fd4 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gradientButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+}
+
+.authButtonGroup {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.authButton {
+  flex: 1;
+  border: 2px solid #e0e0e0;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #333;
+}
+
+.authButton:hover {
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkboxAlignLeft {
+  margin-left: -9px;
+}
+
+.login-hr {
+  margin-top: 100px !important;
+}
+
+.hr-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.errorText {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
