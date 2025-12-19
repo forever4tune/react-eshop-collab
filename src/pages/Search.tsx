@@ -92,7 +92,7 @@ const Search = () => {
             position: "relative",
             display: "inline-block",
             right: "-42%",
-            width: "20%;",
+            width: "20%",
           }}
         >
           <label style={{ marginRight: 8 }}>Sort:</label>
