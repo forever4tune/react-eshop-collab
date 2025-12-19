@@ -190,5 +190,65 @@
     "name": "computer10",
     "price": 12.3,
     "image": "/public/computers/computer (10).jfif"
+  },
+  {
+    "id": 33,
+    "name": "phone1",
+    "price": 12.3,
+    "image": "/public/phones/phone (1).jfif"
+  },
+  {
+    "id": 34,
+    "name": "phone2",
+    "price": 12.3,
+    "image": "/public/phones/phone (2).jfif"
+  },
+  {
+    "id": 5,
+    "name": "phone3",
+    "price": 12.3,
+    "image": "/public/phones/phone (3).jfif"
+  },
+  {
+    "id": 36,
+    "name": "phon4",
+    "price": 12.3,
+    "image": "/public/phones/phone (4).jfif"
+  },
+  {
+    "id": 37,
+    "name": "phone5",
+    "price": 12.3,
+    "image": "/public/phones/phone (5).jfif"
+  },
+  {
+    "id": 38,
+    "name": "phone6",
+    "price": 12.3,
+    "image": "/public/phones/phone (6).jfif"
+  },
+  {
+    "id": 39,
+    "name": "phone7",
+    "price": 12.3,
+    "image": "/public/phones/phone (7).jfif"
+  },
+  {
+    "id": 40,
+    "name": "phone8",
+    "price": 12.3,
+    "image": "/public/phones/phone (8).jfif"
+  },
+  {
+    "id": 41,
+    "name": "phone9",
+    "price": 12.3,
+    "image": "/public/phones/phone (9).jfif"
+  },
+  {
+    "id": 42,
+    "name": "phone10",
+    "price": 12.3,
+    "image": "/public/phones/phone (10).jfif"
   }
 ]
