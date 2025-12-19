@@ -113,7 +113,7 @@ const Login = () => {
                             color: "#007bff",
                           }}
                         >
-                          Forgot?
+                          Forgot Password?
                         </Link>
                       </InputAdornment>
                     ),
