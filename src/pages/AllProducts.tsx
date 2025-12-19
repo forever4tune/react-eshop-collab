@@ -15,7 +15,7 @@ const AllProducts: React.FC = () => {
     return productsData.filter((p) => p.category === selectedCategory);
   }, [selectedCategory]);
 
-  // Sort products
+  // Sort products by selected criteria
   const sortedProducts = useMemo(() => {
     const sorted = [...filteredProducts];
     if (sortBy === "price") {
