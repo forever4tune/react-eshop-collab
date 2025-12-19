@@ -43,9 +43,12 @@ const Register = () => {
     if (!email) newErrors.email = "Email is required";
     else if (!emailRe.test(email)) newErrors.email = "Enter a valid email";
     if (!password) newErrors.password = "Password is required";
-    else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
-    if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password";
-    else if (confirmPassword !== password) newErrors.confirmPassword = "Passwords do not match";
+    else if (password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+    if (!confirmPassword)
+      newErrors.confirmPassword = "Please confirm your password";
+    else if (confirmPassword !== password)
+      newErrors.confirmPassword = "Passwords do not match";
     if (!agreeTerms) newErrors.agreeTerms = "You must agree to continue";
 
     setErrors(newErrors);
@@ -57,7 +60,7 @@ const Register = () => {
   };
 
   return (
-    <div className={`container mt-5 ${styles["auth-wrapper-height"]}`}>
+    <div className="container mt-5" style={{ paddingBottom: "6px" }}>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card p-4">
@@ -70,7 +73,12 @@ const Register = () => {
                   fullWidth
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  onBlur={() => setErrors((p) => ({ ...p, name: !name ? "Name is required" : undefined }))}
+                  onBlur={() =>
+                    setErrors((p) => ({
+                      ...p,
+                      name: !name ? "Name is required" : undefined,
+                    }))
+                  }
                   error={Boolean(errors.name)}
                   helperText={errors.name}
                   InputProps={{
@@ -91,7 +99,14 @@ const Register = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => {
                     const emailRe = /^\S+@\S+\.\S+$/;
-                    setErrors((p) => ({ ...p, email: !email ? "Email is required" : !emailRe.test(email) ? "Enter a valid email" : undefined }));
+                    setErrors((p) => ({
+                      ...p,
+                      email: !email
+                        ? "Email is required"
+                        : !emailRe.test(email)
+                        ? "Enter a valid email"
+                        : undefined,
+                    }));
                   }}
                   error={Boolean(errors.email)}
                   helperText={errors.email}
@@ -112,7 +127,16 @@ const Register = () => {
                   fullWidth
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onBlur={() => setErrors((p) => ({ ...p, password: !password ? "Password is required" : password.length < 6 ? "Password must be at least 6 characters" : undefined }))}
+                  onBlur={() =>
+                    setErrors((p) => ({
+                      ...p,
+                      password: !password
+                        ? "Password is required"
+                        : password.length < 6
+                        ? "Password must be at least 6 characters"
+                        : undefined,
+                    }))
+                  }
                   error={Boolean(errors.password)}
                   helperText={errors.password}
                   InputProps={{
@@ -132,7 +156,16 @@ const Register = () => {
                   fullWidth
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  onBlur={() => setErrors((p) => ({ ...p, confirmPassword: !confirmPassword ? "Please confirm your password" : confirmPassword !== password ? "Passwords do not match" : undefined }))}
+                  onBlur={() =>
+                    setErrors((p) => ({
+                      ...p,
+                      confirmPassword: !confirmPassword
+                        ? "Please confirm your password"
+                        : confirmPassword !== password
+                        ? "Passwords do not match"
+                        : undefined,
+                    }))
+                  }
                   error={Boolean(errors.confirmPassword)}
                   helperText={errors.confirmPassword}
                   InputProps={{
@@ -155,7 +188,9 @@ const Register = () => {
                   }
                   label="I agree to the Terms of Service and Privacy Policy"
                 />
-                {errors.agreeTerms && <div className={styles.errorText}>{errors.agreeTerms}</div>}
+                {errors.agreeTerms && (
+                  <div className={styles.errorText}>{errors.agreeTerms}</div>
+                )}
               </div>
               <button
                 className={styles.gradientButton}
@@ -184,7 +219,11 @@ const Register = () => {
                 onClose={() => setOpenSuccess(false)}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
               >
-                <Alert onClose={() => setOpenSuccess(false)} severity="success" sx={{ width: "100%" }}>
+                <Alert
+                  onClose={() => setOpenSuccess(false)}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
                   Registration successful
                 </Alert>
               </Snackbar>
