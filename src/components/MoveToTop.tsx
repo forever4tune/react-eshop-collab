@@ -1,7 +1,7 @@
 
 const MoveToTop = () => {
     return (
-        <div>
+        <div className="main">
             <div>MoveToTop Component</div>
         </div>
     )
