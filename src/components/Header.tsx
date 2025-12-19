@@ -1,12 +1,13 @@
 import { ShoppingCart, Search, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { useState } from "react";
 
 export default function Header() {
-  const [searchKey, setSearchKey] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const navigate = useNavigate();
   const searchProducts = (e: string) => {
-    setSearchKey(e);
+    setSearchQuery(e);
   };
   const [isLoggiedIn, setIsLoggedIn] = useState<boolean>(false);
   const token = localStorage.getItem("auth");
@@ -31,26 +32,38 @@ export default function Header() {
             onChange={(e) => {
               searchProducts(e.target.value);
             }}
-            value={searchKey}
+            value={searchQuery}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+              }
+            }}
           />
-          <Search />
+          <button
+            onClick={() =>
+              navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
+            }
+            style={{ background: "none", border: "none", cursor: "pointer", paddingLeft: "5px" }}
+          >
+            <Search />
+          </button>
         </div>
         {/* Navigation */}
         <nav className={styles.nav}>
-          <Link to="/AllProducts" className={styles.products}>
+          <Link to="/products" className={styles.products}>
             Products
           </Link>
-          <Link to="/AllCategories" className={styles.categories}>
+          <Link to="/categories" className={styles.categories}>
             Categories
           </Link>
         </nav>
 
         {/* Actions */}
         <div style={{ display: "inline-flex" }}>
-          <button className={styles["cart-avatar"]}>
+          <Link to="/cart" className={styles["cart-avatar"]}>
             <ShoppingCart />
             <span className={styles.number}>2</span>
-          </button>
+          </Link>
 
           <div>
             {isLoggiedIn ? (

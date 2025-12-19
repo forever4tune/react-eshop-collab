@@ -9,6 +9,7 @@
   height: 40px;
   width: 300px;
 }
+
 .number {
   position: absolute;
   top: 8px;
@@ -42,12 +43,14 @@
   border-radius: 50px;
 }
 .cart-avatar {
-  height: 47px;
+  display: inline-flex;
+  background: white;
+  justify-content: center;
+  align-items: center;
   width: 47px;
   border-radius: 50px;
-  padding: 0;
   position: relative;
-  margin-right: 25px;
+  margin-right: 20px;
 }
 .user-avatar {
   height: 47px;
@@ -56,11 +59,12 @@
   padding: 0;
 }
 .nav {
-    position: relative;
-    right: -5%;
-    font-size: 1.2em;
+  position: relative;
+  right: -5%;
+  font-size: 1.2em;
 }
-.products:hover, .categories:hover {
-    border: 1px solid rgb(0, 102, 255);
-    color: black;
+.products:hover,
+.categories:hover {
+  border: 1px solid rgb(0, 102, 255);
+  color: black;
 }
