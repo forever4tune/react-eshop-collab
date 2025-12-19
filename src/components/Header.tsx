@@ -22,19 +22,8 @@ export default function Header() {
           shopify
         </Link>
 
-        {/* Navigation */}
-        <nav style={{ fontSize: "1.2em" }}>
-          <Link to="/AllProducts" className={styles.products}>
-            Products
-          </Link>
-          <Link to="/AllCategories" className={styles.categories}>
-            Categories
-          </Link>
-        </nav>
-
         {/* Search */}
         <div>
-          <Search />
           <input
             type="text"
             placeholder="Search products"
@@ -44,20 +33,30 @@ export default function Header() {
             }}
             value={searchKey}
           />
+          <Search />
         </div>
+        {/* Navigation */}
+        <nav className={styles.nav}>
+          <Link to="/AllProducts" className={styles.products}>
+            Products
+          </Link>
+          <Link to="/AllCategories" className={styles.categories}>
+            Categories
+          </Link>
+        </nav>
 
         {/* Actions */}
         <div style={{ display: "inline-flex" }}>
-          <button className="relative">
+          <button className={styles["cart-avatar"]}>
             <ShoppingCart />
             <span className={styles.number}>2</span>
           </button>
 
           <div>
             {isLoggiedIn ? (
-              <img src="/public/kyo.jfif" className="avatar"></img>
+              <img src="/public/kyo.jfif" className={styles.avatar}></img>
             ) : (
-              <button>
+              <button className={styles["user-avatar"]}>
                 <User />
               </button>
             )}
