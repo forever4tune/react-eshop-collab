@@ -1,6 +1,6 @@
 import { ShoppingCart, Search, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./header.module.css";
+import styles from "../styles/header.module.css";
 import { useState } from "react";
 
 export default function Header() {
