@@ -9,9 +9,8 @@ export default function Header() {
   const searchProducts = (e: string) => {
     setSearchQuery(e);
   };
-  const [isLoggiedIn, setIsLoggedIn] = useState<boolean>(false);
   const token = localStorage.getItem("auth");
-  if (token) setIsLoggedIn(true);
+  const isLoggiedIn = !!token;
   return (
     <header>
       <div
@@ -43,7 +42,12 @@ export default function Header() {
             onClick={() =>
               navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
             }
-            style={{ background: "none", border: "none", cursor: "pointer", paddingLeft: "5px" }}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              paddingLeft: "5px",
+            }}
           >
             <Search />
           </button>

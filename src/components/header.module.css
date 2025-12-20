@@ -8,6 +8,7 @@
   border-color: dodgerblue;
   height: 40px;
   width: 300px;
+  padding-left: 15px;
 }
 
 .number {
@@ -61,7 +62,7 @@
 .nav {
   position: relative;
   right: -5%;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .products:hover,
 .categories:hover {

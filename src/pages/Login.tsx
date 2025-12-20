@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div className={`container mt-5 ${styles["auth-wrapper-height"]}`}>
+    <div className={`container ${styles["auth-wrapper-height"]}`}>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card p-4">

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { productsData } from "../data/products";
 import ProductCard from "../components/ProductCard";
 import styles from "../styles/product.module.css";
+import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 const AllProducts: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -28,6 +29,12 @@ const AllProducts: React.FC = () => {
 
   // Get unique categories
   const categories = ["All", ...new Set(productsData.map((p) => p.category))];
+
+  // Infinite scroll: show a slice and load more on intersection
+  const { visibleItems, sentinelRef, hasMore } = useInfiniteScroll(
+    sortedProducts,
+    12
+  );
 
   return (
     <div className={styles.productsContainer}>
@@ -73,7 +80,8 @@ const AllProducts: React.FC = () => {
 
         {/* Products Grid */}
         <div className={styles.productsGrid}>
-          {sortedProducts.map((product) => (
+          {/** Use infinite-scroll to display a subset and lazy-load more */}
+          {visibleItems.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -82,6 +90,13 @@ const AllProducts: React.FC = () => {
           <div className={styles.noProducts}>
             <p>No products found in this category.</p>
           </div>
+        )}
+        {/* Sentinel for infinite scroll */}
+        <div ref={sentinelRef as React.RefObject<HTMLDivElement>} style={{ height: 1 }} />
+        {hasMore && (
+          <p style={{ textAlign: "center", padding: "1rem 0" }}>
+            Loading more...
+          </p>
         )}
       </div>
     </div>
