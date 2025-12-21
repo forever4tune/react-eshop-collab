@@ -6,9 +6,7 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 const AllProducts: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [sortBy, setSortBy] = useState<"default" | "price" | "rating">(
-    "default"
-  );
+  const [sortBy, setSortBy] = useState<string>("default");
 
   // Filter products by category
   const filteredProducts = useMemo(() => {
@@ -19,9 +17,13 @@ const AllProducts: React.FC = () => {
   // Sort products by selected criteria
   const sortedProducts = useMemo(() => {
     const sorted = [...filteredProducts];
-    if (sortBy === "price") {
+    if (sortBy === "Price: Low to High") {
       sorted.sort((a, b) => a.price - b.price);
-    } else if (sortBy === "rating") {
+    } else if (sortBy === "Price: High to Low") {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "Rating: Low to High") {
+      sorted.sort((a, b) => a.rating - b.rating);
+    } else if (sortBy === "Rating: High to Low") {
       sorted.sort((a, b) => b.rating - a.rating);
     }
     return sorted;
@@ -61,13 +63,13 @@ const AllProducts: React.FC = () => {
             <select
               className={styles.sortDropdown}
               value={sortBy}
-              onChange={(e) =>
-                setSortBy(e.target.value as "default" | "price" | "rating")
-              }
+              onChange={(e) => setSortBy(e.target.value)}
             >
               <option value="default">Default</option>
-              <option value="price">Price: Low to High</option>
-              <option value="rating">Highest Rated</option>
+              <option value="Price: Low to High">Price: Low to High</option>
+              <option value="Price: High to Low">Price: High to Low</option>
+              <option value="Rating: Low to High">Rating: Low to High</option>
+              <option value="Rating: High to Low">Rating: High to Low</option>
             </select>
           </div>
 
@@ -92,7 +94,10 @@ const AllProducts: React.FC = () => {
           </div>
         )}
         {/* Sentinel for infinite scroll */}
-        <div ref={sentinelRef as React.RefObject<HTMLDivElement>} style={{ height: 1 }} />
+        <div
+          ref={sentinelRef as React.RefObject<HTMLDivElement>}
+          style={{ height: 1 }}
+        />
         {hasMore && (
           <p style={{ textAlign: "center", padding: "1rem 0" }}>
             Loading more...

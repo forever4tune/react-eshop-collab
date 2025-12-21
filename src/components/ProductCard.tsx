@@ -10,6 +10,7 @@ type ProductCardProps = {
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
   const navigate = useNavigate();
   const discountPercent = Math.round(
     ((product.originalPrice - product.price) / product.originalPrice) * 100

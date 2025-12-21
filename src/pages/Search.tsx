@@ -1,52 +1,116 @@
 import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import productsData from "../data.json";
+import { useLocation } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
 
 type Product = {
   id: number;
   name: string;
-  price: number;
+  price: number; // discounted/current price
   image: string;
+  rating: number;
+  category: string;
+  original: number; // original price before discount
+  originalPrice: number;
+  reviews: number;
 };
 
-const getCategoryFromName = (name: string) => {
-  const m = name.match(/^[a-zA-Z]+/);
-  return m ? m[0].toLowerCase() : "other";
+type ApiProduct = {
+  id: number;
+  title?: string;
+  name?: string;
+  price: number;
+  discountPercentage?: number;
+  thumbnail?: string;
+  images?: string[];
+  rating?: number;
+  category?: string;
+  brand?: string;
+  reviews: number;
 };
-
-const normalizeImage = (img: string) => img.replace(/^\/public/, "");
 
 const Search = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const params = useMemo(
     () => new URLSearchParams(location.search),
     [location.search]
   );
-  const initialQuery = params.get("q") || "";
+  const qParam = params.get("q") || "";
 
-  const [query, setQuery] = useState<string>(initialQuery);
+  const [query, setQuery] = useState<string>(qParam);
   const [sort, setSort] = useState<string>("default");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setQuery(initialQuery);
-  }, [initialQuery]);
+    setQuery(qParam);
+  }, [qParam]);
 
-  const products: Product[] = productsData as Product[];
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const url = qParam
+          ? `https://dummyjson.com/products/search?q=${encodeURIComponent(
+              qParam
+            )}`
+          : `https://dummyjson.com/products?limit=100`;
+
+        const res = await fetch(url, { signal });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        const list = data.products.map((p: ApiProduct) => {
+          const price: number = Number(p.price ?? 0);
+          const discount: number = Number(p.discountPercentage ?? 0);
+          const reviews: number = Array.isArray(p.reviews)
+            ? p.reviews.length
+            : Number(p.reviews ?? 0);
+          const original =
+            discount && discount < 100
+              ? Number((price / (1 - discount / 100)).toFixed(2))
+              : Number((price * 1.2).toFixed(2));
+
+          return {
+            id: Number(p.id),
+            name: String(p.title ?? p.name ?? "Untitled"),
+            price,
+            image: String((p.thumbnail || (p.images && p.images[0])) ?? ""),
+            rating: p.rating ? Number(p.rating) : 0,
+            category: String(p.category ?? p.brand ?? "uncategorized"),
+            original,
+            originalPrice: original,
+            reviews,
+          } as Product;
+        });
+
+        setProducts(list);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          if (err.name === "AbortError") return;
+          setError(err.message || "Failed to load products");
+        } else {
+          setError("Failed to load products");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+    return () => controller.abort();
+  }, [qParam]);
 
   const computed = useMemo(() => {
-    // augment products with rating and original price
-    return products.map((p) => {
-      const rating = (p.id % 5) + 1; // 1-5
-      const original = Number((p.price * 1.2).toFixed(2));
-      const discounted = Number(p.price.toFixed(2));
-      const category = getCategoryFromName(p.name);
-      return { ...p, rating, original, discounted, category };
-    });
+    return products.map((p) => ({ ...p }));
   }, [products]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = (query || "").trim().toLowerCase();
     let list = computed.filter((p) => {
       return (
         q === "" ||
@@ -57,16 +121,16 @@ const Search = () => {
 
     switch (sort) {
       case "price-asc":
-        list = list.sort((a, b) => a.discounted - b.discounted);
+        list = [...list].sort((a, b) => a.price - b.price);
         break;
       case "price-desc":
-        list = list.sort((a, b) => b.discounted - a.discounted);
+        list = [...list].sort((a, b) => b.price - a.price);
         break;
       case "rating-asc":
-        list = list.sort((a, b) => a.rating - b.rating);
+        list = [...list].sort((a, b) => a.rating - b.rating);
         break;
       case "rating-desc":
-        list = list.sort((a, b) => b.rating - a.rating);
+        list = [...list].sort((a, b) => b.rating - a.rating);
         break;
       default:
         break;
@@ -82,20 +146,9 @@ const Search = () => {
         margin: "100px auto",
       }}
     >
-      <div
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            display: "inline-block",
-            right: "-42%",
-            width: "20%",
-          }}
-        >
-          <label style={{ marginRight: 8 }}>Sort:</label>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
+          <label style={{ alignSelf: "center", marginRight: 8 }}>Sort:</label>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="default">Default</option>
             <option value="price-asc">Price: Low to High</option>
@@ -106,6 +159,9 @@ const Search = () => {
         </div>
       </div>
 
+      {loading && <div>Loading products…</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+
       <div
         style={{
           display: "grid",
@@ -113,81 +169,8 @@ const Search = () => {
           gap: 16,
         }}
       >
-        {filtered.map((p) => (
-          <div
-            key={p.id}
-            style={{ border: "1px solid #ddd", padding: 12, borderRadius: 6 }}
-          >
-            <div
-              onClick={() => navigate(`/product/${p.id}`)}
-              style={{
-                textAlign: "center",
-                marginBottom: 8,
-                cursor: "pointer",
-              }}
-            >
-              <img
-                src={normalizeImage(p.image)}
-                alt={p.name}
-                style={{
-                  width: "100%",
-                  height: 150,
-                  objectFit: "cover",
-                  borderRadius: 4,
-                }}
-              />
-            </div>
-
-            <div style={{ fontSize: 12, color: "#666", marginBottom: 6 }}>
-              {p.category}
-            </div>
-            <div style={{ fontWeight: 600, marginBottom: 6 }}>{p.name}</div>
-
-            <div style={{ color: "#f5a623", marginBottom: 6 }}>
-              {Array.from({ length: p.rating }).map((_, i) => (
-                <span key={i}>★</span>
-              ))}
-            </div>
-
-            <div style={{ marginBottom: 8 }}>
-              <span
-                style={{
-                  textDecoration: "line-through",
-                  color: "#999",
-                  marginRight: 8,
-                }}
-              >
-                ${p.original}
-              </span>
-              <span style={{ fontWeight: 700 }}>${p.discounted}</span>
-            </div>
-
-            <div style={{ display: "flex", gap: 8 }}>
-              <button
-                onClick={() => navigate(`/cart`)}
-                style={{
-                  flex: 1,
-                  padding: "8px 10px",
-                  background: "#0660d9",
-                  color: "white",
-                  border: "none",
-                  borderRadius: 4,
-                }}
-              >
-                Add to cart
-              </button>
-              <button
-                onClick={() => navigate(`/product/${p.id}`)}
-                style={{
-                  padding: "8px 10px",
-                  border: "1px solid #ddd",
-                  borderRadius: 4,
-                }}
-              >
-                Details
-              </button>
-            </div>
-          </div>
+        {filtered.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
