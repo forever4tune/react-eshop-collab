@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import {useState } from 'react'
+// import { Provider } from "react-redux";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import MoveToTop from "./components/MoveToTop";
+import Cart from "./components/Cart";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Search from "./pages/Search";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import AllProducts from "./pages/AllProducts";
+import AllCategories from "./pages/AllCategories";
+import SingleProduct from "./pages/SingleProduct";
+import SingleCategory from "./pages/SingleCategory";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/products" element={<AllProducts />} />
+        <Route path="/categories" element={<AllCategories />} />
+        <Route path="/product/:productID" element={<SingleProduct />} />
+        <Route path="/category/:slug" element={<SingleCategory />} />
+      </Routes>
+      <MoveToTop />
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
