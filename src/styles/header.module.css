@@ -1,3 +1,13 @@
+header {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .title {
   font-size: 2em;
   font-weight: bold;
