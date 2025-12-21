@@ -47,9 +47,6 @@ const Search = () => {
   }, [qParam]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
@@ -60,7 +57,7 @@ const Search = () => {
             )}`
           : `https://dummyjson.com/products?limit=100`;
 
-        const res = await fetch(url, { signal });
+        const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
@@ -102,7 +99,6 @@ const Search = () => {
     };
 
     fetchProducts();
-    return () => controller.abort();
   }, [qParam]);
 
   const computed = useMemo(() => {
