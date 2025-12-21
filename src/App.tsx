@@ -24,13 +24,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/move-to-top" element={<MoveToTop />} />
         <Route path="/search" element={<Search />} />
         <Route path="/products" element={<AllProducts />} />
         <Route path="/categories" element={<AllCategories />} />
         <Route path="/product/:productID" element={<SingleProduct />} />
         <Route path="/category/:slug" element={<SingleCategory />} />
       </Routes>
+      <MoveToTop />
       <Footer />
     </BrowserRouter>
   );
